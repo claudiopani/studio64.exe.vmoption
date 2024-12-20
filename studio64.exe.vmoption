@@ -1,0 +1,39 @@
+# custom Android Studio VM options, see https://developer.android.com/studio/intro/studio-config.html
+
+# Runs JVM in Server mode with more optimizations and resources usage
+# It may slow down the startup, but if you usually keep IDE running for few hours/days
+# JVM may profile and optimize IDE better. Feel free to remove this flag.
+-server
+
+# Sets the initial size of the heap, default value is 256m
+-Xms4G
+
+# Max size of the memory allocation pool, default value is 1280m
+-Xmx8G
+
+# Sets the size of the allocated class metadata space that will trigger a GC the first time it is exceeded, default max value is 350m
+-XX:MetaspaceSize=512m
+
+-XX:MaxPermSize=4G
+-XX:ReservedCodeCacheSize=2048m
+-XX:+UseConcMarkSweepGC
+-XX:SoftRefLRUPolicyMSPerMB=50
+-XX:+HeapDumpOnOutOfMemoryError
+
+-ea
+-Dsun.io.useCanonCaches=false
+-Djava.net.preferIPv4Stack=true
+-Djna.nosys=true
+-Djna.boot.library.path=
+
+-Djna.debug_load=true
+-Djna.debug_load.jna=true
+-Djsse.enableSNIExtension=false
+-XX:+UseCodeCacheFlushing
+-Didea.platform.prefix=AndroidStudio
+-Didea.paths.selector=AndroidStudio
+
+# -Xms: Specifying the initial size of the memory allocation pool for JVM. For PC with 8GB of RAM, start specifying with -Xms1G is a sweet spot.
+# -Xmx: Specifying the maximum size of the memory allocation pool for JVM. For PC with 8GB of RAM, -Xmx2G is a good value to start.
+# -XX:MaxPermSize: Specifying the permanent generation. This allocated memory holds compiled class pages. If it’s already full, then it triggers a full garbage collection to clean the old unreferenced classes. I would say start with -XX:MaxPermSize=1G for a PC with 8GB of RAM. Some people said it’s not necessary anymore in Java 8, but I do still configure it anyway.
+# -XX:ReservedCodeCacheSize: Specifying the reserved code cache size. I don’t really understand what this config affects. But, still configure it anyway. In a PC with 8GB of RAM we can start with -XX:ReservedCodeCacheSize=512m.
